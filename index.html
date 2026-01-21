@@ -1,36 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Redirecting to Gen2Evolve...</title>
-    <meta http-equiv="refresh" content="2; URL=https://www.youtube.com/@Gen2Evolve">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to Gen2Evolve</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            height: 100vh; margin: 0; background-color: #f9f9f9; 
+        }
+        .btn {
+            padding: 15px 30px; background-color: #ff0000; color: white;
+            text-decoration: none; border-radius: 25px; font-weight: bold;
+            font-size: 1.2rem; transition: transform 0.2s;
+        }
+        .btn:active { transform: scale(0.95); }
+        p { color: #555; margin-bottom: 20px; }
     </style>
 </head>
 <body>
-    <p>Opening the YouTube App...</p>
-    <p>If nothing happens, <a href="https://www.youtube.com/@Gen2Evolve">click here</a>.</p>
+
+    <p>Redirecting to YouTube...</p>
+    <a href="https://www.youtube.com/@Gen2Evolve" id="yt-link" class="btn">Open YouTube App</a>
 
     <script>
         (function() {
             const webUrl = "https://www.youtube.com/@Gen2Evolve";
-            // Android Intent to force open the official YouTube app
             const androidIntent = "intent://www.youtube.com/@Gen2Evolve#Intent;package=com.google.android.youtube;scheme=https;end";
-            // iOS URI scheme
             const iosScheme = "youtube://www.youtube.com/@Gen2Evolve";
 
             const ua = navigator.userAgent || navigator.vendor || window.opera;
 
+            // 1. Try Automatic Redirect
             if (/android/i.test(ua)) {
-                // Android: Uses Intent for a reliable "app open"
                 window.location.replace(androidIntent);
             } else if (/iPad|iPhone|iPod/.test(ua)) {
-                // iOS: Tries the scheme, then falls back to web if it fails
+                // On iOS, we try the scheme, but often the user MUST click the button
                 window.location.replace(iosScheme);
-                setTimeout(() => { window.location.replace(webUrl); }, 500);
+                // Fallback to web link if they don't have the app
+                setTimeout(() => { window.location.replace(webUrl); }, 2500);
             } else {
-                // Desktop: Direct redirect
                 window.location.replace(webUrl);
             }
         })();
