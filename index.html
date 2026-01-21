@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting to Gen2Evolve...</title>
+    <meta http-equiv="refresh" content="2; URL=https://www.youtube.com/@Gen2Evolve">
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+    </style>
+</head>
+<body>
+    <p>Opening the YouTube App...</p>
+    <p>If nothing happens, <a href="https://www.youtube.com/@Gen2Evolve">click here</a>.</p>
+
+    <script>
+        (function() {
+            const webUrl = "https://www.youtube.com/@Gen2Evolve";
+            // Android Intent to force open the official YouTube app
+            const androidIntent = "intent://www.youtube.com/@Gen2Evolve#Intent;package=com.google.android.youtube;scheme=https;end";
+            // iOS URI scheme
+            const iosScheme = "youtube://www.youtube.com/@Gen2Evolve";
+
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+
+            if (/android/i.test(ua)) {
+                // Android: Uses Intent for a reliable "app open"
+                window.location.replace(androidIntent);
+            } else if (/iPad|iPhone|iPod/.test(ua)) {
+                // iOS: Tries the scheme, then falls back to web if it fails
+                window.location.replace(iosScheme);
+                setTimeout(() => { window.location.replace(webUrl); }, 500);
+            } else {
+                // Desktop: Direct redirect
+                window.location.replace(webUrl);
+            }
+        })();
+    </script>
+</body>
+</html>
